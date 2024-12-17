@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation'
 import { Button } from '../components/ui/button'
 import { MoonIcon, SunIcon, BookmarkIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useRole } from '../components/RoleProvider'
+import { useAuth } from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
 
 export function Header() {
   const pathname = usePathname()
   const { setTheme } = useTheme()
-  const { role, setRole } = useRole()
+  const { user, toggleRole, logout } = useAuth()
   const [mounted, setMounted] = useState(false)
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light')
 
@@ -27,11 +27,8 @@ export function Header() {
     }
   }, [theme, mounted])
 
-  const toggleRole = () => {
-    setRole(role === 'supplier' ? 'worker' : 'supplier')
-  }
 
-  const navItems = role === 'supplier'
+  const navItems = user?.role === 'supplier'
     ? [
         { href: '/supplier', label: 'Book a Spot' },
         { href: '/supplier/bookings', label: 'My Bookings' },
@@ -52,22 +49,41 @@ export function Header() {
             ASP Booking
           </Link>
           <nav className="flex space-x-2">
-            {navItems.map((item) => (
-              <Button
-                key={item.href}
-                asChild
-                variant={pathname === item.href ? 'default' : 'ghost'}
-                size="sm"
-              >
-                <Link href={item.href}>{item.label}</Link>
-              </Button>
-            ))}
+            {user ? (
+                navItems.map((item) => (
+                    <Button
+                        key={item.href}
+                        asChild
+                        variant={pathname === item.href ? 'default' : 'ghost'}
+                        size="sm"
+                    >
+                        <Link href={item.href}>{item.label}</Link>
+                    </Button>
+                ))
+            ) : null}
           </nav>
         </div>
         <div className="flex items-center space-x-2">
-          <Button onClick={toggleRole} size="sm" variant="outline">
-            Switch to {role === 'supplier' ? 'Worker' : 'Supplier'}
-          </Button>
+            {user ? (
+                <>
+                    <Button onClick={toggleRole} size="sm" variant="outline">
+                        Switch to {user?.role === 'supplier' ? 'Worker' : 'Supplier'}
+                    </Button>
+                    <Button onClick={logout} size="sm" variant="outline">
+                        Logout
+                    </Button>
+                </>
+            ) : (
+                <>
+                    <Button asChild size="sm" variant="outline">
+                        <Link href="/auth/login">Login</Link>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
+                        <Link href="/auth/signup">Signup</Link>
+                    </Button>
+                </>
+            )}
+
           <Button
             variant="ghost"
             size="icon"

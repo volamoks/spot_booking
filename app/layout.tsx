@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Azeret_Mono as Geist_Mono } from 'next/font/google';
 
 import { ThemeProvider } from '../components/ThemeProvider';
-import { Toaster } from '../components/ui/toaster';
 import { RoleProvider } from '../components/RoleProvider';
+import { Toaster } from '../components/ui/toaster';
 import '../app/globals.css';
 import { Header } from '../components/header';
 import { Footer } from '../components/footer';

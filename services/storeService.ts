@@ -1,23 +1,20 @@
-import prisma from './prismaService';
 import { Store, Zone, Booking } from '../types';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 async function getStoresWithZonesAndBookings(): Promise<Store[]> {
   try {
-    const stores = await prisma.store.findMany({
-      include: {
-        dmpZones: {
-          include: {
-            bookings: true,
-          },
-        },
-      },
-    });
-    
+    const response = await fetch(`${baseUrl}/api/stores`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch stores: ${response.status} ${response.statusText}`);
+    }
+    const stores: Store[] = await response.json();
+
     if (!stores) {
       throw new Error('No stores found');
     }
 
-    const storesWithValidDates = stores.map((store): Store => ({
+    const storesWithValidDates = stores.map((store: Store): Store => ({
       id: store.id,
       name: store.name,
       address: `${store.city}, ${store.region}`,
@@ -25,7 +22,7 @@ async function getStoresWithZonesAndBookings(): Promise<Store[]> {
       region: store.region,
       isPremium: false,
       size: 'Medium',
-      dmpZones: store.dmpZones.map((zone): Zone => ({
+      dmpZones: store.dmpZones.map((zone: Zone): Zone => ({
         id: zone.id,
         uniqueId: zone.uniqueId,
         equipment: zone.equipment,
@@ -40,7 +37,7 @@ async function getStoresWithZonesAndBookings(): Promise<Store[]> {
         storeId: zone.storeId,
         comment: zone.comment,
         price: zone.price,
-        bookings: zone.bookings.map((booking): Booking => {
+        bookings: zone.bookings.map((booking: Booking): Booking => {
           if (!booking) {
             console.error("Booking is null for zone:", zone);
             return {

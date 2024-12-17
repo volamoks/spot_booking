@@ -1,31 +1,50 @@
-'use client'
+'use client';
 
-import React, { createContext, useContext, useState } from 'react'
-
-type Role = 'supplier' | 'worker'
+import React, { createContext, useContext, ReactNode } from 'react';
+import { withRoleProtection } from './with-role-protection';
+import { UserRole } from '../types/user';
+import { useAuth } from '../hooks/useAuth';
 
 interface RoleContextType {
-  role: Role
-  setRole: (role: Role) => void
+  role: UserRole | null;
 }
 
-const RoleContext = createContext<RoleContextType | undefined>(undefined)
+const RoleContext = createContext<RoleContextType | undefined>(undefined);
 
-export function RoleProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRole] = useState<Role>('supplier')
+interface RoleProviderProps {
+  children: ReactNode;
+}
+
+export function RoleProvider({ children }: RoleProviderProps) {
+  const { user } = useAuth();
+  const role = user?.role || null;
 
   return (
-    <RoleContext.Provider value={{ role, setRole }}>
+    <RoleContext.Provider value={{ role }}>
       {children}
     </RoleContext.Provider>
-  )
+  );
 }
 
-export function useRole() {
-  const context = useContext(RoleContext)
+export function useRole(): RoleContextType {
+  const context = useContext(RoleContext);
   if (context === undefined) {
-    throw new Error('useRole must be used within a RoleProvider')
+    throw new Error('useRole must be used within a RoleProvider');
   }
-  return context
+  return context;
 }
 
+interface ProtectedComponentProps {
+  component: React.ComponentType<unknown>;
+  allowedRoles: UserRole[];
+  props?: Record<string, unknown>;
+}
+
+export function ProtectedComponent({ 
+  component: Component, 
+  allowedRoles,
+  props = {}
+}: ProtectedComponentProps): React.ReactElement {
+  const ProtectedComponent = withRoleProtection(Component, allowedRoles);
+  return <ProtectedComponent {...props} />;
+}

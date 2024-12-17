@@ -1,31 +1,70 @@
-import { BookingPageClient } from './client'
-
-async function getStoreData(storeId: string) {
-  // In a real app, this would be an API call
-  const stores = [
-    {
-      id: "1",
-      name: "Store A",
-      spots: [
-        { id: 1, name: "Spot A1", price: 100, description: "Near entrance", location: "Front", isAvailable: true },
-        { id: 2, name: "Spot A2", price: 150, description: "Window display", location: "Front", isAvailable: false },
-        { id: 3, name: "Spot A3", price: 80, description: "Back corner", location: "Back", isAvailable: true },
-      ],
-      unavailableDates: ["2024-03-15", "2024-03-16", "2024-03-17"]
-    },
-    // ... other stores
-  ]
-
-  return stores.find(store => store.id === storeId)
-}
+import { BookASpot } from '../../../../components/book-a-spot';
+import { prisma } from '../../../../services/prismaService';
 
 export default async function BookingPage({ params }: { params: { storeId: string } }) {
-  const storeData = await getStoreData(params.storeId)
+  const store = await prisma.store.findUnique({
+    where: {
+      id: parseInt(params.storeId)
+    },
+    include: {
+      dmpZones: {
+        include: {
+          bookings: true,
+        },
+      },
+    },
+  });
 
-  if (!storeData) {
+  if (!store) {
     return <div>Store not found</div>
   }
 
-  return <BookingPageClient storeData={storeData} />
-}
+  const storeWithValidDates = {
+    id: store.id,
+    name: store.name,
+    address: `${store.city}, ${store.region}`,
+    city: store.city,
+    region: store.region,
+    isPremium: false,
+    size: 'Medium',
+    dmpZones: store.dmpZones.map((zone) => ({
+      id: zone.id,
+      uniqueId: zone.uniqueId,
+      equipment: zone.equipment,
+      dmpProductNeighboring: zone.dmpProductNeighboring,
+      purpose: zone.purpose,
+      subPurpose: zone.subPurpose,
+      category: zone.category,
+      supplier: zone.supplier,
+      brand: zone.brand,
+      productCategory: zone.productCategory,
+      status: zone.status,
+      storeId: zone.storeId,
+      comment: zone.comment,
+      price: zone.price,
+      bookings: zone.bookings.map((booking) => {
+        if (!booking) {
+          console.error("Booking is null for zone:", zone);
+          return {
+            id: -1,
+            startDate: null,
+            endDate: null,
+            status: 'unknown',
+            userId: -1,
+            zoneId: -1,
+          }
+        }
+        return {
+          id: booking.id,
+          startDate: booking.startDate ? booking.startDate : null,
+          endDate: booking.endDate ? booking.endDate : null,
+          status: booking.status,
+          userId: booking.userId,
+          zoneId: booking.zoneId,
+        }
+      }),
+    })),
+  };
 
+  return <BookASpot initialStores={[storeWithValidDates]} />
+}

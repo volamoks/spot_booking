@@ -1,12 +1,12 @@
 'use client'
 
-import { useRole } from '@/components/role-provider'
+import { useRole } from '../components/RoleProvider'
 import { useEffect, useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
+import { Badge } from '../components/ui/badge'
+import { Input } from '../components/ui/input'
+import { Button } from '../components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import {
   Table,
   TableBody,
@@ -14,9 +14,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { useToast } from "@/components/ui/use-toast"
-import { FilterButton } from "@/components/filter-button"
+} from '../components/ui/table'
+import { useToast } from '../hooks/use-toast'
 
 interface Booking {
   id: number;
@@ -148,7 +147,7 @@ export function WorkerBookings({ initialBookings }: WorkerBookingsProps) {
                     <Badge
                       variant={
                         booking.status === 'confirmed' || booking.status === 'approved'
-                          ? 'success'
+                          ? 'secondary'
                           : booking.status === 'rejected'
                           ? 'destructive'
                           : 'secondary'
@@ -178,4 +177,3 @@ export function WorkerBookings({ initialBookings }: WorkerBookingsProps) {
     </div>
   )
 }
-

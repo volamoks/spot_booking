@@ -1,6 +1,26 @@
-import { WorkerDashboard } from '../components/worker-dashboard.tsx'
+import { WorkerDashboard } from '../../components/worker-dashboard'
+import { UserRole } from '../../types/user';
+import { ProtectedComponent } from '../../components/RoleProvider';
+import React from 'react';
 
-async function getBookingRequests() {
+interface BookingRequest {
+  id: number;
+  supplierName: string;
+  spot: string;
+  date: string;
+  status: 'pending' | 'approved';
+}
+
+interface SupplierBooking {
+  id: number;
+  supplierName: string;
+  spot: string;
+  startDate: string;
+  endDate: string;
+  status: 'confirmed';
+}
+
+async function getBookingRequests(): Promise<BookingRequest[]> {
   // In a real app, this would be an API call
   return [
     { id: 1, supplierName: "Supplier A", spot: "Spot A1", date: "2024-03-15", status: "pending" },
@@ -9,7 +29,7 @@ async function getBookingRequests() {
   ]
 }
 
-async function getSupplierBookings() {
+async function getSupplierBookings(): Promise<SupplierBooking[]> {
   // In a real app, this would be an API call
   return [
     { id: 1, supplierName: "Supplier X", spot: "Spot D1", startDate: "2024-04-01", endDate: "2024-04-05", status: "confirmed" },
@@ -18,8 +38,25 @@ async function getSupplierBookings() {
   ]
 }
 
-export default async function WorkerPage() {
-  const bookingRequests = await getBookingRequests()
-  const supplierBookings = await getSupplierBookings()
-  return <WorkerDashboard initialBookingRequests={bookingRequests} initialSupplierBookings={supplierBookings} />
+interface WorkerPageProps {
+  initialBookingRequests: BookingRequest[];
+  initialSupplierBookings: SupplierBooking[];
+}
+
+function WorkerPage({ initialBookingRequests, initialSupplierBookings }: WorkerPageProps) {
+  return <WorkerDashboard initialBookingRequests={initialBookingRequests} initialSupplierBookings={initialSupplierBookings} />
+}
+
+
+export default function WorkerPageWithRoleProtection() {
+  return (
+    <ProtectedComponent 
+      component={({ ...props }) => <WorkerPage {...props} />}
+      allowedRoles={['worker'] as UserRole[]}
+      props={{
+        initialBookingRequests: getBookingRequests(),
+        initialSupplierBookings: getSupplierBookings()
+      }}
+    />
+  );
 }

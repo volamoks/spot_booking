@@ -1,9 +1,9 @@
-export type BookingStatus = 'pending' | 'approved' | 'rejected' | 'cancelled'
+export type BookingStatus = 'pending' | 'approved' | 'rejected' | 'cancelled' | 'confirmed';
 
 export interface Booking {
   id: number
   storeName: string
-  spotName: string
+  spot: string
   supplierName: string
   startDate: string
   endDate: string
@@ -11,4 +11,3 @@ export interface Booking {
   totalPrice: number
   createdAt: string
 }
-
