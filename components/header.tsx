@@ -6,11 +6,26 @@ import { Button } from '../components/ui/button'
 import { MoonIcon, SunIcon, BookmarkIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useRole } from '../components/RoleProvider'
+import { useEffect, useState } from 'react'
 
 export function Header() {
   const pathname = usePathname()
-  const { setTheme, theme } = useTheme()
+  const { setTheme } = useTheme()
   const { role, setRole } = useRole()
+  const [mounted, setMounted] = useState(false)
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light')
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const { theme } = useTheme()
+
+  useEffect(() => {
+    if (mounted) {
+      setCurrentTheme(theme === 'light' ? 'light' : 'dark')
+    }
+  }, [theme, mounted])
 
   const toggleRole = () => {
     setRole(role === 'supplier' ? 'worker' : 'supplier')
@@ -58,7 +73,7 @@ export function Header() {
             size="icon"
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
           >
-            {theme === 'light' ? (
+            {currentTheme === 'light' ? (
               <MoonIcon className="h-5 w-5" />
             ) : (
               <SunIcon className="h-5 w-5" />

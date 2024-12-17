@@ -18,16 +18,16 @@ enum Category {
 }
 
 model Store {
-  id             Int      @id @default(autoincrement())
-  externalId     String   @map("external_id") // Maps to "ID" in JSON
-  name           String   @map("market") // Maps to "Market" in JSON
-  region         String
-  city           String
-  newFormat      String   @map("new_format")
-  equipmentFormat String  @map("equipment_format")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  dmpZones       Zone[]
+  id              Int      @id @default(autoincrement())
+  externalId      String   @map("external_id") // Maps to "ID" in JSON
+  name            String   @map("market") // Maps to "Market" in JSON
+  region          String
+  city            String
+  newFormat       String   @map("new_format")
+  equipmentFormat String   @map("equipment_format")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  dmpZones        Zone[]
 
   @@map("stores")
 }
@@ -38,20 +38,20 @@ model Zone {
   zoneId                String    @map("zone_id") // Maps to "Zone_ID" in JSON
   equipment             String
   dmpProductNeighboring String    @map("dmp_product_neighboring")
-  purpose              String
-  subPurpose           String    @map("sub_purpose")
-  category             Category
-  supplier             String
-  brand                String
-  productCategory      String    @map("product_category")
-  status               Status
-  storeId              Int
-  comment              String?
-  createdAt            DateTime  @default(now())
-  price                Float
-  updatedAt            DateTime  @updatedAt
-  bookings             Booking[]
-  store                Store     @relation(fields: [storeId], references: [id])
+  purpose               String
+  subPurpose            String    @map("sub_purpose")
+  category              Category
+  supplier              String
+  brand                 String
+  productCategory       String    @map("product_category")
+  status                Status
+  storeId               Int
+  comment               String?
+  createdAt             DateTime  @default(now())
+  price                 Float
+  updatedAt             DateTime  @updatedAt
+  bookings              Booking[]
+  store                 Store     @relation(fields: [storeId], references: [id])
 
   @@map("zones")
 }

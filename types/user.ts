@@ -1,4 +1,4 @@
-export type UserRole = 'supplier' | 'store';
+export type UserRole = 'supplier' | 'worker';
 
 export interface User {
   id: string;
@@ -6,4 +6,3 @@ export interface User {
   role: UserRole;
   avatar: string;
 }
-

@@ -1,4 +1,4 @@
-import { WorkerDashboard } from './worker-dashboard'
+import { WorkerDashboard } from '../components/worker-dashboard.tsx'
 
 async function getBookingRequests() {
   // In a real app, this would be an API call
@@ -23,4 +23,3 @@ export default async function WorkerPage() {
   const supplierBookings = await getSupplierBookings()
   return <WorkerDashboard initialBookingRequests={bookingRequests} initialSupplierBookings={supplierBookings} />
 }
-

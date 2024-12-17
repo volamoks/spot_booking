@@ -12,27 +12,38 @@ export type BookingStatus = 'booked' | 'requested' | 'confirmed';
 
 export interface Booking {
   id: number;
-  supplierName: string;
-  spot: string;
-  startDate: string;
-  endDate: string;
-  status: BookingStatus;
+  startDate: Date | null;
+  endDate: Date | null;
+  status: string;
+  userId: number;
+  zoneId: number;
 }
 
 export interface Store {
   id: number;
   name: string;
+  address: string;
+  dmpZones: Zone[];
+  city: string;
+  region: string;
   isPremium: boolean;
   size: string;
-  address: string;
-  spots: Spot[];
 }
 
-export interface Spot {
+export interface Zone {
   id: number;
-  name: string;
+  uniqueId: string;
+  equipment: string;
+  dmpProductNeighboring: string;
+  purpose: string;
+  subPurpose: string;
+  category: string;
+  supplier: string;
+  brand: string;
+  productCategory: string;
+  status: string;
+  storeId: number;
+  comment: string | null;
   price: number;
-  description: string;
-  type: string;
   bookings: Booking[];
 }
