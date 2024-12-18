@@ -4,7 +4,7 @@ import { Calendar } from '../ui/calendar';
 import { DateRange } from 'react-day-picker';
 import { useTheme } from 'next-themes';
 import { Zone } from '../../types';
-import { useToast } from '../../hooks/use-toast';
+import { useToast } from '@/hooks/ui/use-toast';
 
 interface BookingCalendarProps {
     zone: Zone;

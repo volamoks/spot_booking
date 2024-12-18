@@ -1,4 +1,4 @@
-import { AllBookings } from './client';
+import { AllBookings } from 'client';
 
 export default async function WorkerBookingsPage() {
     return <AllBookings />;

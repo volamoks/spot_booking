@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { DateRange } from 'react-day-picker';
-import { useToast } from '../../hooks/use-toast';
-import { Zone } from '../../types';
+
+import { Zone } from '@/types';
 import { createBookingRequest } from '../../services/bookingRequestService';
 import { BookingCalendar } from './BookingCalendar';
 import { BookingStatusLegend } from './BookingStatusLegend';
 import { BookingSummary } from './BookingSummary';
+import { useToast } from '@/hooks/ui/use-toast';
 
 interface BookingDialogProps {
     zone: Zone;

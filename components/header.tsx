@@ -5,13 +5,14 @@ import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';
 import { MoonIcon, SunIcon, BookmarkIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useAuth } from '../hooks/useAuth';
+
 import { useEffect, useState } from 'react';
+import { useAuth } from '../hooks/auth/useAuth';
 
 export function Header() {
     const pathname = usePathname();
     const { setTheme } = useTheme();
-    const { user, toggleRole, logout } = useAuth();
+    const { user, logout } = useAuth();
     const [mounted, setMounted] = useState(false);
     const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
 
@@ -70,13 +71,6 @@ export function Header() {
                     {user ? (
                         <>
                             <Button
-                                onClick={toggleRole}
-                                size="sm"
-                                variant="outline"
-                            >
-                                Switch to {user?.role === 'supplier' ? 'Worker' : 'Supplier'}
-                            </Button>
-                            <Button
                                 onClick={logout}
                                 size="sm"
                                 variant="outline"
@@ -91,14 +85,14 @@ export function Header() {
                                 size="sm"
                                 variant="outline"
                             >
-                                <Link href="/auth/login">Login</Link>
+                                <Link href="/login">Login</Link>
                             </Button>
                             <Button
                                 asChild
                                 size="sm"
                                 variant="outline"
                             >
-                                <Link href="/auth/signup">Signup</Link>
+                                <Link href="/signup">Signup</Link>
                             </Button>
                         </>
                     )}

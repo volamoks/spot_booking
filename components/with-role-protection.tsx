@@ -1,7 +1,7 @@
 'use client'
 
-import { useAuth } from '@/hooks/useAuth'
-import { UserRole } from '@/types/user'
+import { useAuth } from '@hooks/auth/useAuth'
+import { UserRole } from 'types/user/user'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -23,4 +23,3 @@ export function withRoleProtection(WrappedComponent: React.ComponentType, allowe
     return <WrappedComponent {...props} />
   }
 }
-

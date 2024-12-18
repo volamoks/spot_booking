@@ -1,12 +1,12 @@
-import { Booking } from '@/types/booking';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Booking } from '../types/booking';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Button } from '../components/ui/button';
 import { CalendarIcon, ClockIcon, MapPinIcon, DollarSignIcon } from 'lucide-react';
 
 interface BookingDetailsProps {
     booking: Booking;
-    onStatusChange?: (id: number, status: 'cancelled') => void;
+    onStatusChange?: (id: string, status: 'cancelled') => void;
 }
 
 export function BookingDetails({ booking, onStatusChange }: BookingDetailsProps) {

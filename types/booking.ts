@@ -1,13 +1,13 @@
-export type BookingStatus = 'pending' | 'approved' | 'rejected' | 'cancelled' | 'confirmed';
+export type BookingStatus = 'pending' | 'confirmed' | 'cancelled';
 
 export interface Booking {
-  id: number
-  storeName: string
-  spot: string
-  supplierName: string
-  startDate: string
-  endDate: string
-  status: BookingStatus
-  totalPrice: number
-  createdAt: string
+    id: string;
+    storeName: string;
+    spot: string;
+    startDate: string;
+    endDate: string;
+    status: BookingStatus;
+    totalPrice: number;
+    createdAt: string;
+    // Add other properties as needed
 }
