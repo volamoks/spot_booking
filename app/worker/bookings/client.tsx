@@ -14,7 +14,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 
-const SupplierBookingsClient = () => {
+export const AllBookings = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -195,7 +195,7 @@ const SupplierBookingsClient = () => {
                                 {storeBookings.map(booking => (
                                     <div
                                         key={booking.id}
-                                        className="grid grid-cols-12 gap-4 px-4 py-3 border-t hover:bg-gray-50"
+                                        className="grid grid-cols-12 gap-4 px-4 py-3 border-t hover:bg-gray-2   00"
                                     >
                                         <div className="col-span-3">{booking.spot}</div>
                                         <div className="col-span-6">
@@ -219,4 +219,4 @@ const SupplierBookingsClient = () => {
     );
 };
 
-export default SupplierBookingsClient;
+// export default AllBookings;

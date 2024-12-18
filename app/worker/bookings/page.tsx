@@ -1,9 +1,5 @@
-
-import { WorkerBookings } from '@/components/worker-bookings';
-import { getBookingRequests } from '@/services/bookingService';
+import { AllBookings } from './client';
 
 export default async function WorkerBookingsPage() {
-    const allBookings = await getBookingRequests();
-    return <WorkerBookings initialBookings={allBookings} />;
+    return <AllBookings />;
 }
-ы

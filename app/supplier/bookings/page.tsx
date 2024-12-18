@@ -1,5 +1,9 @@
-import { SupplierBookingsClient } from './client';
+import SupplierBookingsClient from './client';
 
-export default function SupplierBookingsPage() {
-  return <SupplierBookingsClient />;
+export default function BookingsPage() {
+    return (
+        <div className="min-h-screen bg-background">
+            <SupplierBookingsClient />
+        </div>
+    );
 }
