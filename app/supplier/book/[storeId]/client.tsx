@@ -1,6 +1,6 @@
 'use client';
 
-import { BookASpot } from '../../../../components/book-a-spot';
+import { BookASpot } from '../../../../components/BookingSpotPage';
 import { Store } from '../../../../types';
 
 interface BookingPageClientProps {
@@ -8,7 +8,5 @@ interface BookingPageClientProps {
 }
 
 export function BookingPageClient({ initialStores }: BookingPageClientProps) {
-    return (
-        <BookASpot initialStores={initialStores} />
-    );
+    return <BookASpot initialStores={initialStores} />;
 }

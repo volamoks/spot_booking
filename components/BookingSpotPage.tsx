@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRole } from '../components/RoleProvider';
+import { useRole } from './RoleProvider';
 import { useRouter } from 'next/navigation';
 import { Store } from '../types';
 import { useTheme } from 'next-themes';
@@ -25,7 +25,7 @@ export function BookASpot({ initialStores }: BookASpotProps) {
         const equipmentSet = new Set<string>();
         initialStores.forEach(store => {
             store.dmpZones.forEach(zone => {
-                equipmentSet.add(zone.equipment)
+                equipmentSet.add(zone.equipment);
             });
         });
         setEquipmentTypes(Array.from(equipmentSet));
@@ -41,7 +41,7 @@ export function BookASpot({ initialStores }: BookASpotProps) {
     if (role !== 'supplier') return null;
 
     const handleSearch = (term: string) => {
-        setSearchTerm(term);
+        setSearchTerm(searchTerm);
         const filtered = initialStores.filter(store =>
             store.name.toLowerCase().includes(term.toLowerCase()),
         );
@@ -73,7 +73,7 @@ export function BookASpot({ initialStores }: BookASpotProps) {
                     className="text-3xl font-bold mb-6"
                     style={{ color: getRedColor() }}
                 >
-                    Book a Spot
+                    Забронировать ДМП
                 </h1>
 
                 <StoreFilter

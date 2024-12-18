@@ -18,7 +18,7 @@ export function StoreFilter({ onSearch, equipmentTypes, onEquipmentFilter }: Sto
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-grow">
                     <Input
-                        placeholder="Search stores..."
+                        placeholder="Поиск..."
                         value={searchTerm}
                         onChange={e => {
                             setSearchTerm(e.target.value);
@@ -29,15 +29,21 @@ export function StoreFilter({ onSearch, equipmentTypes, onEquipmentFilter }: Sto
                 </div>
             </div>
             <div className="flex flex-wrap gap-2">
+                <Button
+                    onClick={() => onEquipmentFilter('')}
+                    variant={'outline'}
+                >
+                    Все
+                </Button>
                 {equipmentTypes.map(equipment => (
                     <Button
                         key={equipment}
                         onClick={() => onEquipmentFilter(equipment)}
+                        variant={'outline'}
                     >
                         {equipment}
                     </Button>
                 ))}
-                <Button onClick={() => onEquipmentFilter('')}>All</Button>
             </div>
         </div>
     );

@@ -14,12 +14,12 @@ export function ZoneCard({ zone, getRedColor }: ZoneCardProps) {
         <Card className="bg-secondary">
             <CardHeader>
                 <CardTitle className="text-lg">{zone.equipment}</CardTitle>
+                <p className="text-sm mb-2">{zone.uniqueId}</p>
             </CardHeader>
             <CardContent>
-                <p className="text-sm mb-2">{zone.uniqueId}</p>
-                <p className="text-sm mb-2">{zone.dmpProductNeighboring}</p>
-                <p className="font-bold mb-2">${zone.price}/day</p>
-                <p className="text-sm mb-2">{zone.category}</p>
+                <p className="text-sm mb-2">Расположение: {zone.dmpProductNeighboring}</p>
+                <p className="text-sm mb-2">Стоимость: UZS {zone.price}/день</p>
+                <p className="text-sm mb-2">Категория: {zone.category}</p>
                 <BookingDialog
                     zone={zone}
                     getRedColor={getRedColor}

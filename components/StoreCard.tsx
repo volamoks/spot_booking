@@ -20,13 +20,11 @@ export function StoreCard({ store, getRedColor }: StoreCardProps) {
 
     return (
         <Card
-            className="overflow-hidden border-l-4"
+            className="overflow-hidden border-l-4 cursor-pointer"
+            onClick={toggleExpand}
             style={{ borderLeftColor: getRedColor() }}
         >
-            <CardHeader
-                className="cursor-pointer"
-                onClick={toggleExpand}
-            >
+            <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <span>{store.name}</span>
@@ -35,16 +33,20 @@ export function StoreCard({ store, getRedColor }: StoreCardProps) {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="mb-2">Address: {store.address}</p>
-                <p className="mb-2">Available Spots: {store.dmpZones.length}</p>
+                <p className="mb-2">{store.address}</p>
+                <p className="mb-2">Доступных Зон ДМП: {store.dmpZones.length}</p>
                 {expanded && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                         {store.dmpZones.map(zone => (
-                            <ZoneCard
+                            <div
                                 key={zone.id}
-                                zone={zone}
-                                getRedColor={getRedColor}
-                            />
+                                onClick={e => e.stopPropagation()}
+                            >
+                                <ZoneCard
+                                    zone={zone}
+                                    getRedColor={getRedColor}
+                                />
+                            </div>
                         ))}
                     </div>
                 )}

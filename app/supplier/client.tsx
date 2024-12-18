@@ -1,6 +1,6 @@
 'use client';
 
-import { BookASpot } from '../../components/book-a-spot';
+import { BookASpot } from '../../components/BookingSpotPage';
 import { ProtectedComponent } from '../../components/RoleProvider';
 import { Store } from '../../types';
 import { UserRole } from '../../types/user';
@@ -19,7 +19,7 @@ function SupplierClientPage({ stores }: SupplierClientPageProps) {
 
 export default function SupplierClientPageWithProtection({ stores }: SupplierClientPageProps) {
     return (
-        <ProtectedComponent 
+        <ProtectedComponent
             component={() => <SupplierClientPage stores={stores} />}
             allowedRoles={['supplier'] as UserRole[]}
         />

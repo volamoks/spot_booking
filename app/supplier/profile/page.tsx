@@ -1,6 +1,5 @@
-import { SupplierProfileClient } from './client'
+import { SupplierProfileClient } from './client';
 
 export default function SupplierProfilePage() {
-  return <SupplierProfileClient />
+    return <SupplierProfileClient />;
 }
-

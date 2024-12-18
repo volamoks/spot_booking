@@ -5,8 +5,8 @@ import { ThemeProvider } from '../components/ThemeProvider';
 import { RoleProvider } from '../components/RoleProvider';
 import { Toaster } from '../components/ui/toaster';
 import '../app/globals.css';
-import { Header } from '../components/header';
-import { Footer } from '../components/footer';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 const geistSans = Geist({
     subsets: ['latin'],
