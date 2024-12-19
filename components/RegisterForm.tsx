@@ -12,7 +12,7 @@ export default function RegisterForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [company, setCompany] = useState('');
-    const [role, setRole] = useState('');
+    // const [role, setRole] = useState<'supplier'>('supplier');
     const router = useRouter();
     const { toast } = useToast();
 
@@ -33,7 +33,7 @@ export default function RegisterForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, name, company, role }),
+                body: JSON.stringify({ email, password, name, company, role: 'supplier' }),
             });
 
             const data = await response.json();
@@ -101,14 +101,14 @@ export default function RegisterForm() {
                 onChange={e => setCompany(e.target.value)}
                 required
             />
-            <Input
+            {/* <Input
                 type="text"
                 placeholder="Role"
-                value={role}
+                value="supplier"
                 onChange={e => setRole(e.target.value)}
                 required
-            />
-            <Button type="submit">Register</Button>
+            /> */}
+            <Button type="submit">Регистрация</Button>
         </form>
     );
 }
