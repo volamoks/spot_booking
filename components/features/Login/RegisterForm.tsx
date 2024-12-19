@@ -12,7 +12,7 @@ export default function RegisterForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [company, setCompany] = useState('');
-    // const [role, setRole] = useState<'supplier'>('supplier');
+    // const [role, setRole] = useState('');
     const router = useRouter();
     const { toast } = useToast();
 
@@ -104,7 +104,7 @@ export default function RegisterForm() {
             {/* <Input
                 type="text"
                 placeholder="Role"
-                value="supplier"
+                value={role}
                 onChange={e => setRole(e.target.value)}
                 required
             /> */}

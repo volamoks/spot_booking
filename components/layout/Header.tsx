@@ -7,6 +7,7 @@ import { MoonIcon, SunIcon, BookmarkIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useAuth } from '../../hooks/auth/useAuth';
 import { useEffect, useState } from 'react';
+import { UserCard } from '../user-card';
 
 export function Header() {
     const pathname = usePathname();
@@ -68,7 +69,8 @@ export function Header() {
                     </nav>
                 </div>
                 <div className="flex items-center space-x-2">
-                    {user ? (
+                    {user && <UserCard user={user} />}
+                    {/* {user ? (
                         <>
                             <Button
                                 onClick={logout}
@@ -95,7 +97,7 @@ export function Header() {
                                 <Link href="/signup">Signup</Link>
                             </Button>
                         </>
-                    )}
+                    )} */}
 
                     <Button
                         variant="ghost"

@@ -1,6 +1,6 @@
 'use client';
 
-import { BookASpot } from 'components/features/BookingSpotPage';
+import { BookASpot } from '@/components/features/Booking/BookingSpotPage';
 import { Store } from 'types';
 
 interface SupplierClientProps {

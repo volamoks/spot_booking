@@ -5,7 +5,8 @@ import { ThemeProvider } from '../components/ThemeProvider';
 import { RoleProvider } from '../components/RoleProvider';
 import { Toaster } from '../components/ui/toaster';
 import '../app/globals.css';
-import { Header } from '@/components/layout/Header';
+import { Header } from '../components/layout/Header';
+import { SessionProviders } from '../components/layout/SessionProvider';
 
 const geistSans = Geist({
     subsets: ['latin'],
@@ -39,13 +40,15 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <RoleProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <Header />
-                            <main className="flex-grow container mx-auto p-4">{children}</main>
-                            {/* <Footer /> */}
-                        </div>
-                    </RoleProvider>
+                    <SessionProviders>
+                        <RoleProvider>
+                            <div className="flex flex-col min-h-screen">
+                                <Header />
+                                <main className="flex-grow container mx-auto p-4">{children}</main>
+                                {/* <Footer /> */}
+                            </div>
+                        </RoleProvider>
+                    </SessionProviders>
                 </ThemeProvider>
                 <Toaster />
             </body>

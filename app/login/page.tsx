@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import LoginForm from '@/components/LoginForm';
-import RegisterForm from '@/components/RegisterForm';
+import LoginForm from '@/components/features/Login/LoginForm';
+import RegisterForm from '@/components/features/Login/RegisterForm';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
