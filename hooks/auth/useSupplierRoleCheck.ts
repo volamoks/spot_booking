@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect } from 'react';
-import { useRole } from '@/components/RoleProvider';
+import { useRole } from '../../components/layout/RoleProvider';
 import { useRouter } from 'next/navigation';
 
 export function useSupplierRoleCheck() {

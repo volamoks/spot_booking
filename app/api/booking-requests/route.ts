@@ -1,8 +1,29 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '../../../services/prismaService';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../../../lib/authOptions';
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
+      return NextResponse.json({
+        success: false,
+        message: 'Unauthorized',
+      }, { status: 401 });
+    }
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email!,
+      },
+    });
+    if (!user) {
+      return NextResponse.json({
+        success: false,
+        message: 'User not found',
+      }, { status: 404 });
+    }
+    const userId = user.id;
     const { zoneId, startDate, endDate } = await request.json();
 
     if (!zoneId || !startDate || !endDate) {
@@ -28,7 +49,7 @@ export async function POST(request: Request) {
     const booking = await prisma.booking.create({
       data: {
         zoneId: zone.id,
-        userId: 1, // Hardcoded for now, get from session later
+        userId: userId,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         totalPrice: ((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24) + 1) * zone.price,

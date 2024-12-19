@@ -1,13 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { prisma } from 'services/prismaService';
-import { withAuth } from 'lib/auth';
+import { getServerSession } from 'next-auth';
+import { authOptions } from 'lib/authOptions';
 
-async function handler(req: NextRequest & { auth: { userId: string; role: string } }) {
+async function handler() {
+  const session = await getServerSession(authOptions);
+  
+  if (!session?.user) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const { role, userId } = req.auth;
+    const { role, id: userId } = session.user as { role: string, id: string };
 
     // Convert userId to number since our schema uses Int
-    const userIdNum = parseInt(userId);
+    const userIdNum = parseInt(userId as string);
 
     // Filter bookings based on user role
     const bookings = await prisma.booking.findMany({
@@ -49,4 +56,4 @@ async function handler(req: NextRequest & { auth: { userId: string; role: string
   }
 }
 
-export const GET = withAuth(handler);
+export const GET = handler;
