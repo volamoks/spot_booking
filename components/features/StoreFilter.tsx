@@ -12,6 +12,7 @@ interface StoreFilterProps {
 
 export function StoreFilter({ onSearch, equipmentTypes, onEquipmentFilter }: StoreFilterProps) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeButton, setActiveButton] = useState<string>('');
 
     return (
         <div className="space-y-4">
@@ -30,16 +31,22 @@ export function StoreFilter({ onSearch, equipmentTypes, onEquipmentFilter }: Sto
             </div>
             <div className="flex flex-wrap gap-2">
                 <Button
-                    onClick={() => onEquipmentFilter('')}
-                    variant={'outline'}
+                    onClick={() => {
+                        onEquipmentFilter('');
+                        setActiveButton('');
+                    }}
+                    variant={activeButton == '' ? 'default' : 'outline'}
                 >
                     Все
                 </Button>
                 {equipmentTypes.map(equipment => (
                     <Button
                         key={equipment}
-                        onClick={() => onEquipmentFilter(equipment)}
-                        variant={'outline'}
+                        onClick={() => {
+                            onEquipmentFilter(equipment);
+                            setActiveButton(equipment);
+                        }}
+                        variant={equipment == activeButton ? 'red' : 'outline'}
                     >
                         {equipment}
                     </Button>

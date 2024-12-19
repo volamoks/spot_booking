@@ -49,8 +49,9 @@ export function Header() {
                         className="text-xl font-bold flex items-center"
                     >
                         <BookmarkIcon className="mr-2" />
-                        ASP Booking
+                        DMP Booking
                     </Link>
+
                     <nav className="flex space-x-2">
                         {user
                             ? navItems.map(item => (

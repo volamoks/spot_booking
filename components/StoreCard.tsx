@@ -42,7 +42,7 @@ export function StoreCard({ store, getRedColor }: StoreCardProps) {
                                 key={zone.id}
                                 onClick={e => e.stopPropagation()}
                             >
-                                <ZoneCard
+                                <ZoneCard       
                                     zone={zone}
                                     getRedColor={getRedColor}
                                 />

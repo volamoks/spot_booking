@@ -22,7 +22,6 @@ export function useFilteredStores({ initialStores }: UseFilteredStoresProps) {
         setFilteredStores(initialStores);
     }, [initialStores]);
 
-
     const handleSearch = (term: string) => {
         setSearchTerm(term);
         const filtered = initialStores.filter(store =>

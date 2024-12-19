@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Booking, BookingStatus } from '../../../types/booking';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
-import { Badge } from '../../../components/ui/badge';
+import { Booking, BookingStatus } from 'types/booking';
+import { Input } from 'components/ui/input';
+import { Button } from 'components/ui/button';
+import { Badge } from 'components/ui/badge';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import {
     Select,
@@ -12,7 +12,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '../../../components/ui/select';
+} from 'components/ui/select';
 
 const SupplierBookingsClient = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);

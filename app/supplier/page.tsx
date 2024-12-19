@@ -1,4 +1,4 @@
-import { StoreService } from '../../services/storeService';
+import { StoreService } from 'services/storeService';
 import SupplierClient from './client';
 
 export default async function SupplierProfilePage() {

@@ -5,8 +5,7 @@ import { ThemeProvider } from '../components/ThemeProvider';
 import { RoleProvider } from '../components/RoleProvider';
 import { Toaster } from '../components/ui/toaster';
 import '../app/globals.css';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { Header } from '@/components/layout/Header';
 
 const geistSans = Geist({
     subsets: ['latin'],
@@ -44,7 +43,7 @@ export default function RootLayout({
                         <div className="flex flex-col min-h-screen">
                             <Header />
                             <main className="flex-grow container mx-auto p-4">{children}</main>
-                            <Footer />
+                            {/* <Footer /> */}
                         </div>
                     </RoleProvider>
                 </ThemeProvider>
