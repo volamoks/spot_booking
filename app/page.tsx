@@ -15,11 +15,7 @@ export default function Home() {
             return;
         }
 
-        if (user.role === 'supplier') {
-            router.push('/supplier');
-        } else if (user.role === 'worker') {
-            router.push('/worker');
-        }
+        router.push('/' + user.role);
     }, [user, router]);
 
     return (

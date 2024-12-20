@@ -35,11 +35,7 @@ export function Header() {
                   { href: '/supplier/bookings', label: 'My Bookings' },
                   { href: '/supplier/profile', label: 'My Profile' },
               ]
-            : [
-                  { href: '/worker/dashboard', label: 'Dashboard' },
-                  { href: '/worker/bookings', label: 'All Bookings' },
-                  { href: '/worker/profile', label: 'My Profile' },
-              ];
+            : [{ href: '/employee/dashboard', label: 'Dashboard' }];
 
     return (
         <header className="bg-background border-b sticky top-0 z-10">
@@ -70,7 +66,7 @@ export function Header() {
                 </div>
                 <div className="flex items-center space-x-2">
                     {user && <UserCard user={user} />}
-                    {/* {user ? (
+                    {user ? (
                         <>
                             <Button
                                 onClick={logout}
@@ -97,7 +93,7 @@ export function Header() {
                                 <Link href="/signup">Signup</Link>
                             </Button>
                         </>
-                    )} */}
+                    )}
 
                     <Button
                         variant="ghost"

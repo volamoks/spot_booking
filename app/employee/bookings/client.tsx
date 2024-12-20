@@ -17,7 +17,7 @@ import { DateRange } from 'react-day-picker';
 import { Table } from '@/components/ui/table';
 import { getWorkerBookings } from '@/services/workerBookingService';
 
-export default function WorkerBookings() {
+export default function AllBookings() {
     const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [filterStatus, setFilterStatus] = useState<BookingStatus | 'all'>('all');
@@ -59,7 +59,6 @@ export default function WorkerBookings() {
         fetchBookings();
     }, []);
 
-
     const handleOpenDialog = (booking: Booking) => {
         setSelectedBooking(booking);
         setIsDialogOpen(true);
@@ -69,14 +68,13 @@ export default function WorkerBookings() {
         setSelectedZone(zone || null);
     };
 
-
     const handleStatusChange = async (bookingId: number, newStatus: BookingStatus) => {
         try {
             // await updateBookingStatus(bookingId, newStatus); // Removed since updateBookingStatus is not available
             setBookings(prevBookings =>
                 prevBookings.map(booking =>
-                    booking.id === bookingId ? { ...booking, status: newStatus } : booking
-                )
+                    booking.id === bookingId ? { ...booking, status: newStatus } : booking,
+                ),
             );
             toast({
                 title: 'Success',
@@ -115,14 +113,16 @@ export default function WorkerBookings() {
             : filteredBookings;
     }, [filteredBookings, filterDate]);
 
-    const handleDateSelect = useCallback((range: DateRange | undefined) => {
-        if (range?.from) {
-            setFilterDate(range.from);
-        } else {
-            setFilterDate(null);
-        }
-    }, [setFilterDate]);
-
+    const handleDateSelect = useCallback(
+        (range: DateRange | undefined) => {
+            if (range?.from) {
+                setFilterDate(range.from);
+            } else {
+                setFilterDate(null);
+            }
+        },
+        [setFilterDate],
+    );
 
     return (
         <div>
@@ -132,7 +132,7 @@ export default function WorkerBookings() {
             </div>
             <div className="flex justify-between items-center mb-4">
                 <BookingCalendar
-                    zone={selectedZone || { bookings: [] } as Zone}
+                    zone={selectedZone || ({ bookings: [] } as Zone)}
                     dateRange={filterDate ? { from: filterDate, to: filterDate } : undefined}
                     onDateRangeChange={handleDateSelect}
                     getRedColor={() => 'red'}
@@ -176,7 +176,10 @@ export default function WorkerBookings() {
                     </Table>
                 </div>
             )}
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <Dialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+            >
                 {selectedZone && selectedBooking && (
                     <BookingDialog
                         zone={selectedZone}
